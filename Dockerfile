@@ -7,7 +7,7 @@ ENV FC_LANG en-US
 ENV LC_CTYPE en_US.UTF-8
 
 # install core build tools
-RUN apk add --update nodejs git wget bash python make g++ java-cacerts ttf-dejavu fontconfig && \
+RUN apk add --update nodejs git wget bash python make g++ java-cacerts ttf-dejavu fontconfig curl && \
 	npm install -g yarn && \
 	ln -sf "${JAVA_HOME}/bin/"* "/usr/bin/" && \
 	rm -f /usr/lib/jvm/default-jvm/jre/lib/security/cacerts && \
@@ -16,7 +16,7 @@ RUN apk add --update nodejs git wget bash python make g++ java-cacerts ttf-dejav
 	chmod 744 /usr/local/bin/lein && \
 	mkdir -p /app/source && \
 	git clone https://github.com/huksley/metabase /app/source && \
-	cd /app/soure && \
+	cd /app/source && \
 	bin/build && \
 	apk del nodejs git wget python make g++ && \
 	rm -rf /root/.lein /root/.m2 /root/.node-gyp /root/.npm /root/.yarn /root/.yarn-cache \
