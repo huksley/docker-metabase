@@ -7,7 +7,7 @@ ENV FC_LANG en-US
 ENV LC_CTYPE en_US.UTF-8
 
 # install core build tools
-RUN apk add --update nodejs git wget bash python make g++ java-cacerts ttf-dejavu fontconfig curl && \
+RUN apk add --update nodejs git wget bash python make g++ java-cacerts ttf-dejavu fontconfig curl procps && \
 	npm install -g yarn && \
 	ln -sf "${JAVA_HOME}/bin/"* "/usr/bin/" && \
 	rm -f /usr/lib/jvm/default-jvm/jre/lib/security/cacerts && \
