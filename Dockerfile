@@ -18,11 +18,12 @@ RUN apk add --update nodejs git wget bash python make g++ java-cacerts ttf-dejav
 	git clone https://github.com/huksley/metabase /app/source && \
 	cd /app/source && \
 	bin/build && \
+	lein uberjar && \
 	apk del nodejs git wget python make g++ && \
 	rm -rf /root/.lein /root/.m2 /root/.node-gyp /root/.npm /root/.yarn /root/.yarn-cache \
 		/tmp/* /var/cache/apk/* /app/source/node_modules \
 		/usr/local/share/.cache && \
-	find / 
+	find /app/source
 
 # expose our default runtime port
 EXPOSE 3000
