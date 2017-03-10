@@ -8,6 +8,7 @@ ENV LC_CTYPE en_US.UTF-8
 
 # install core build tools
 RUN apk add --update nodejs git wget bash python make g++ java-cacerts ttf-dejavu fontconfig curl procps tar && \
+	touch ~/.bashrc && \
 	curl -o- -L https://yarnpkg.com/install.sh | bash && \
 	ln -sf "${JAVA_HOME}/bin/"* "/usr/bin/" && \
 	rm -f /usr/lib/jvm/default-jvm/jre/lib/security/cacerts && \
@@ -17,7 +18,6 @@ RUN apk add --update nodejs git wget bash python make g++ java-cacerts ttf-dejav
 	mkdir -p /app/source && \
 	git clone https://github.com/huksley/metabase /app/source && \
 	cd /app/source && \
-	touch ~/.bashrc && \
 	bin/build && \
 	lein uberjar && \
 	apk del nodejs git wget python make g++ && \
