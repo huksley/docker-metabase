@@ -1,9 +1,12 @@
 #!/bin/bash
-set -e
+BIMG="huksley/metabase-build"
+METABASE_VERSION="v0.23.0"
 
+set -e
+rm -Rf metabase
 git clone https://github.com/metabase/metabase
 cd metabase
-git checkout tags/v0.23.0
+git checkout tags/$METABASE_VERSION
 
 PULLS="4405"
 for N in `echo $PULLS`; do
@@ -12,9 +15,6 @@ for N in `echo $PULLS`; do
     curl -L -o pull-$N.patch $PURL
     patch -p1 < pull-$N.patch
 done
-
-BIMG="huksley/metabase-build"
-RIMG="huksley/metabase"
 
 PREV=`docker images $BIMG -q`
 if [ "$PREV" != "" ]; then
@@ -27,18 +27,6 @@ docker build --tag $BIMG .
 
 echo "Getting files from container"
 CID=`docker create $BIMG`
-docker copy $CID:/app/source/bin/start ../start
-docker copy $CID:/app/source/target/uberjar/metabase.jar ../metabase.jar
+docker cp $CID:/app/source/bin/start ../start
+docker cp $CID:/app/source/target/uberjar/metabase.jar ../metabase.jar
 docker rm $CID
-
-echo "Building real container image"
-cd ..
-
-PREV=`docker images $RIMG -q`
-if [ "$PREV" != "" ]; then
-	echo "Removing previous image $PREV"
-	docker rmi $PREV
-fi
-
-echo "Building running container..."
-docker build --tag $RIMG .
