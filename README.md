@@ -1,9 +1,13 @@
 # docker-metabase
-Docker build for metabase.
 
-Builds docker with patches by using intermediary container.
+Docker build for metabase v 0.31.1
+Builds in docker with pull requests applied.
 
-Execute build-artefacts.sh
-to build and prepare artefacts (JAR and start script)
+## Current PRs included:
 
-After that, use standard `docker build` to create running container.
+  * [[9022](https://github.com/metabase/metabase/pull/9022)] Fix currency formatting of negative numbers when currency_in_header = true
+
+## Links
+
+  * Docker hub: https://hub.docker.com/r/huksley/metabase
+  * Github: https://github.com/huksley/docker-metabase
