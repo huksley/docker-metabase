@@ -45,7 +45,10 @@ ENV FC_LANG en-US
 ENV LC_CTYPE en_US.UTF-8
 
 COPY --from=builder /etc/ssl/certs/java/cacerts /usr/lib/jvm/default-jvm/jre/lib/security/cacerts
-RUN mkdir -p bin target/uberjar
+
+RUN apk add --update --no-cache bash && \
+    mkdir -p bin target/uberjar
+    
 COPY --from=builder /app/source/metabase/target/uberjar/metabase.jar /app/target/uberjar/
 COPY --from=builder /app/source/metabase/bin/start /app/bin/
 
