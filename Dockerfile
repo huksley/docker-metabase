@@ -12,7 +12,7 @@ ENV LC_CTYPE en_US.UTF-8
 ARG METABASE_VERSION=v0.31.1
 
 # Specify PR ids to pull and apply to source code
-ARG METABASE_PULLS=7047
+ARG METABASE_PULLS=9022
 
 ADD https://raw.github.com/technomancy/leiningen/stable/bin/lein /usr/local/bin/lein
 ADD https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem /tmp/rds-combined-ca-bundle.pem
