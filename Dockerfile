@@ -9,10 +9,10 @@ ENV FC_LANG en-US
 ENV LC_CTYPE en_US.UTF-8
 
 # Specify version here or on docker build line
-ARG METABASE_VERSION=v0.31.1
+ARG METABASE_VERSION=v0.33.0-RC1
 
 # Specify PR ids to pull and apply to source code
-ARG METABASE_PULLS=9022
+ARG METABASE_PULLS=
 
 ADD https://raw.github.com/technomancy/leiningen/stable/bin/lein /usr/local/bin/lein
 ADD https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem /tmp/rds-combined-ca-bundle.pem
@@ -35,6 +35,15 @@ RUN git clone --branch $METABASE_VERSION --depth 1 https://github.com/metabase/m
     lein deps && \
     yarn && \
     bin/build && \
+    cp /app/source/metabase/target/uberjar/metabase.jar /app/source/metabase.jar && \
+    lein install-for-building-drivers && \
+    cd .. && \
+    true
+
+RUN git clone --depth 1 https://github.com/tlrobinson/metabase-http-driver && \
+    cd metabase-http-driver && \
+    lein clean && \
+    DEBUG=1 LEIN_SNAPSHOTS_IN_RELEASE=true lein uberjar && \
     true
 
 FROM openjdk:8-jre-alpine as runner
@@ -49,7 +58,8 @@ COPY --from=builder /etc/ssl/certs/java/cacerts /usr/lib/jvm/default-jvm/jre/lib
 RUN apk add --update --no-cache bash && \
     mkdir -p bin target/uberjar
     
-COPY --from=builder /app/source/metabase/target/uberjar/metabase.jar /app/target/uberjar/
+COPY --from=builder /app/source/metabase.jar /app/target/uberjar/
+COPY --from=builder /app/source/metabase-http-driver/target/uberjar/http.metabase-driver.jar /app/target/plugins/
 COPY --from=builder /app/source/metabase/bin/start /app/bin/
 
 EXPOSE 3000

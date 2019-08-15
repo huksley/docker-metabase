@@ -1,11 +1,15 @@
 # docker-metabase
 
-Docker build for metabase v 0.31.1
-Builds in docker with pull requests applied.
+Docker build for metabase v 0.33.0-RC1
+Builds in docker with pull requests applied and additional drivers included.
 
 ## Current PRs included:
 
-  * [[9022](https://github.com/metabase/metabase/pull/9022)] Fix currency formatting of negative numbers when currency_in_header = true
+  * None, define METABASE_PULLS= build arg to include Metabase PRs to apply before build
+
+## Additional drivers included:
+
+  * https://github.com/tlrobinson/metabase-http-driver Allows to query JSON endpoints
 
 ## Links
 
