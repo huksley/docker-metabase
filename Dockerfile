@@ -59,7 +59,7 @@ RUN apk add --update --no-cache bash && \
     mkdir -p bin target/uberjar
     
 COPY --from=builder /app/source/metabase.jar /app/target/uberjar/
-COPY --from=builder /app/source/metabase-http-driver/target/uberjar/http.metabase-driver.jar /app/target/plugins/
+COPY --from=builder /app/source/metabase-http-driver/target/uberjar/http.metabase-driver.jar /app/plugins/
 COPY --from=builder /app/source/metabase/bin/start /app/bin/
 
 EXPOSE 3000
