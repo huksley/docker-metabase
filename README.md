@@ -3,6 +3,12 @@
 Docker build for metabase v 0.33.0
 Builds in docker with pull requests applied and additional drivers included.
 
+## Running
+
+```bash
+docker run -d -p 3000:3000 --name metabase huksley/metabase:0.33
+```
+
 ## Current PRs included:
 
   * None, define METABASE_PULLS= build arg to include Metabase PRs to apply before build
@@ -15,3 +21,4 @@ Builds in docker with pull requests applied and additional drivers included.
 
   * Docker hub: https://hub.docker.com/r/huksley/metabase
   * Github: https://github.com/huksley/docker-metabase
+
