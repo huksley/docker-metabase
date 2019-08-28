@@ -1,6 +1,6 @@
 # docker-metabase
 
-Docker build for metabase v 0.33.0-RC1
+Docker build for metabase v 0.33.0
 Builds in docker with pull requests applied and additional drivers included.
 
 ## Current PRs included:

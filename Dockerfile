@@ -9,7 +9,7 @@ ENV FC_LANG en-US
 ENV LC_CTYPE en_US.UTF-8
 
 # Specify version here or on docker build line
-ARG METABASE_VERSION=v0.33.0-RC1
+ARG METABASE_VERSION=v0.33.0
 
 # Specify PR ids to pull and apply to source code
 ARG METABASE_PULLS=
