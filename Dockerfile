@@ -33,9 +33,9 @@ RUN git clone --branch $METABASE_VERSION --depth 1 https://github.com/metabase/m
     cd metabase && \
     git checkout tags/$METABASE_VERSION && \
     /app/source/apply-pulls && \
+    rm -f locales/pl.po locales/fr.po locales/nl.po locales/it.po && \
     lein deps && \
     yarn && \
-    rm -f locales/pl.o && \
     bin/build && \
     cp /app/source/metabase/target/uberjar/metabase.jar /app/source/metabase.jar && \
     lein install-for-building-drivers && \
