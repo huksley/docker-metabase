@@ -19,7 +19,8 @@ ADD https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem /tmp/rds-c
 ADD apply-pulls /app/source/
 
 # Install software, add all AWS/RDS certificates
-RUN apk add --update --no-cache wget bash curl patch java-cacerts ttf-dejavu fontconfig git make gettext bash yarn && \
+RUN apk add --update --no-cache wget bash curl patch java-cacerts \
+    ttf-dejavu fontconfig git make gettext bash yarn && \
     keytool -noprompt -import -trustcacerts -alias aws-rds \
       -file /tmp/rds-combined-ca-bundle.pem \
       -keystore /etc/ssl/certs/java/cacerts \
@@ -34,6 +35,7 @@ RUN git clone --branch $METABASE_VERSION --depth 1 https://github.com/metabase/m
     /app/source/apply-pulls && \
     lein deps && \
     yarn && \
+    rm -f locales/pl.o && \
     bin/build && \
     cp /app/source/metabase/target/uberjar/metabase.jar /app/source/metabase.jar && \
     lein install-for-building-drivers && \
